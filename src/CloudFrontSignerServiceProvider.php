@@ -38,7 +38,6 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
                     throw new InvalidArgumentException('CloudFront private key must be a string.');
                 }
 
-
                 return new CloudFrontSigner(
                     keyPairId: $keyPairId,
                     privateKeyPath: $privateKeyAbsolutePath,
