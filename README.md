@@ -1,8 +1,10 @@
 # CloudFront Signer for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/curentis/cloudfront-signer?style=flat-square&label=release&color=blue)](https://packagist.org/packages/curentis/cloudfront-signer)
-[![Static Analysis](https://github.com/curentis/cloudfront-signer/actions/workflows/phpstan.yml/badge.svg)](https://github.com/curentis/cloudfront-signer/actions/workflows/phpstan.yml)
-[![License](https://img.shields.io/packagist/l/curentis/cloudfront-signer.svg?style=flat-square)](https://packagist.org/packages/curentis/cloudfront-signer)
+[![Tests](https://img.shields.io/github/actions/workflow/status/curentis/cloudfront-signer/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/curentis/cloudfront-signer/actions/workflows/run-tests.yml)
+[![Lint](https://img.shields.io/github/actions/workflow/status/curentis/cloudfront-signer/lint.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/curentis/cloudfront-signer/actions/workflows/lint.yml)
+[![Static Analysis](https://img.shields.io/github/actions/workflow/status/curentis/cloudfront-signer/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/curentis/cloudfront-signer/actions/workflows/phpstan.yml)
+[![License](https://img.shields.io/github/license/curentis/cloudfront-signer?style=flat-square)](https://github.com/curentis/cloudfront-signer/blob/main/LICENSE)
 
 A strictly-typed, modern Laravel package for generating AWS CloudFront signed URLs. Designed for high performance and seamless integration with Laravel 11 and 12+.
 
