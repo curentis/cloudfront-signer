@@ -1,10 +1,5 @@
 # CloudFront Signer for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/curentis/cloudfront-signer.svg?style=flat-square)](https://packagist.org/packages/curentis/cloudfront-signer)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/curentis/cloudfront-signer/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/curentis/cloudfront-signer/actions)
-[![Total Downloads](https://img.shields.io/packagist/dt/curentis/cloudfront-signer.svg?style=flat-square)](https://packagist.org/packages/curentis/cloudfront-signer)
-[![License](https://img.shields.io/packagist/l/curentis/cloudfront-signer.svg?style=flat-square)](https://packagist.org/packages/curentis/cloudfront-signer)
-
 A strictly-typed, modern Laravel package for generating AWS CloudFront signed URLs. Designed for high performance and seamless integration with Laravel 11 and 12+.
 
 ## Key Features
@@ -82,11 +77,8 @@ To fix code style:
 ./vendor/bin/pint
 ```
 
-## Security
-If you discover any security-related issues, please email security@curentis.com instead of using the issue tracker.
-
 ## Contributing
-Please see CONTRIBUTING for details.
+Please see [CONTRIBUTING](https://github.com/Curentis/cloudfront-signer/blob/main/CONTRIBUTING) for details.
 
 ## License
-The Apache License 2.0. Please see License File for more information.
+The [Apache License 2.0](https://github.com/Curentis/cloudfront-signer/blob/main/LICENSE). Please see License File for more information.
