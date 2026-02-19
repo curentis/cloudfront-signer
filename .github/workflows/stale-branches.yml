@@ -1,0 +1,28 @@
+name: "Cleanup Stale Branches"
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  stale-branches:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: "Remove Stale Branches"
+        uses: fpicalausa/remove-stale-branches@v2.4.0
+        with:
+          # Mark as stale after 7 days
+          days-before-branch-stale: 7
+          # Delete after 7 more days
+          days-before-branch-delete: 7
+          stale-branch-message: '@{author} Your branch [{branchName}] has not been updated in a week and is marked as stale. It will be removed in 7 days unless you add new commits.'
+          # Crucial: Protect your important branches
+          exempt-branches-regex: '^(main|master|develop|v[0-9]+)$'
+          # Don't delete branches that have an active PR
+          ignore-branches-with-open-prs: true
+          # Set to false once you verify it works!
+          dry-run: false

@@ -7,7 +7,6 @@ namespace Curentis\CloudFrontSigner;
 use Aws\CloudFront\CloudFrontClient;
 use Curentis\CloudFrontSigner\Contracts\Signer;
 use DateTimeInterface;
-use Illuminate\Support\Facades\Config;
 
 readonly class CloudFrontSigner implements Signer
 {
@@ -40,8 +39,12 @@ readonly class CloudFrontSigner implements Signer
             return $expires->getTimestamp();
         }
 
-        $seconds = $expires ?? (int) Config::get('cloudfront-signer.default_expiration', 3600);
+        $expires = config('cloudfront-signer.expires');
 
-        return time() + $seconds;
+        if (!is_numeric($expires)) {
+            $expires = 3600; // Provide a safe default
+        }
+
+        return (int) $expires;
     }
 }

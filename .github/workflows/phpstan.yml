@@ -1,0 +1,36 @@
+name: PHPStan
+
+on: [push, pull_request]
+
+jobs:
+  setup:
+    uses: ./.github/workflows/strategy.yml
+
+  phpstan:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # We only need to run static analysis on the latest PHP version
+        # to save GitHub Action minutes, but you can use the matrix if you prefer.
+        php: [8.3]
+
+    name: Static Analysis (PHP ${{ matrix.php }})
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: phpstan
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
+
+      - name: Run PHPStan
+        # --error-format=github makes errors clickable in the PR interface
+        run: ./vendor/bin/phpstan analyse --error-format=github
