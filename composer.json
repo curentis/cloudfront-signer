@@ -1,0 +1,59 @@
+{
+  "name": "curentis/cloudfront-signer",
+  "description": "A fluent Laravel SDK for generating AWS CloudFront signed URLs and cookies.",
+  "keywords": [
+    "laravel",
+    "aws",
+    "cloudfront",
+    "signed-url",
+    "security"
+  ],
+  "homepage": "https://github.com/curentis/cloudfront-signer",
+  "license": "Apache-2.0",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Ishan Tripathi",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^11.0|^12.0",
+    "aws/aws-sdk-php": "^3.0"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.13",
+    "orchestra/testbench": "^10.9",
+    "pestphp/pest": "^3.8",
+    "pestphp/pest-plugin-laravel": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Curentis\\CloudFrontSigner\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Curentis\\CloudFrontSigner\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Curentis\\CloudFrontSigner\\CloudFrontSignerServiceProvider"
+      ],
+      "aliases": {
+        "CloudFrontSigner": "Curentis\\CloudFrontSigner\\Facades\\CloudFrontSigner"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
