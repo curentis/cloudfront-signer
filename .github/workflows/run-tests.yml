@@ -1,10 +1,13 @@
 name: Run Tests
 
 on: [push, pull_request]
+permissions:
+  contents: read
 
 jobs:
   setup:
     uses: ./.github/workflows/strategy.yml
+
   test:
     needs: setup
     runs-on: ubuntu-latest

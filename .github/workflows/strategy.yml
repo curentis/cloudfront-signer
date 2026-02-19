@@ -1,4 +1,5 @@
 name: Strategy
+permissions: {}
 
 on:
   workflow_call:
