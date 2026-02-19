@@ -6,6 +6,7 @@ namespace Curentis\CloudFrontSigner;
 
 use Curentis\CloudFrontSigner\Contracts\Signer;
 use Illuminate\Support\ServiceProvider;
+use InvalidArgumentException;
 
 class CloudFrontSignerServiceProvider extends ServiceProvider
 {
@@ -20,10 +21,27 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
         $this->app->singleton(
             Signer::class,
             function ($app): CloudFrontSigner {
+
+                /** @var string $privateKeyPath */
+                $privateKeyPath = config('cloudfront-signer.private_key_path');
+
+                /** @var ?string $privateKeyAbsolutePath */
+                $privateKeyAbsolutePath = $this->resolvePath($privateKeyPath);
+
+                /** @var string $keyPairId */
+                $keyPairId = config('cloudfront-signer.key_pair_id');
+
+                /** @var string $region */
+                $region = config('cloudfront-signer.region', 'us-east-1');
+
+                if (is_null($privateKeyAbsolutePath)) {
+                    throw new InvalidArgumentException('CloudFront private key must be a string.');
+                }
+
                 return new CloudFrontSigner(
-                    keyPairId: (string) config('cloudfront-signer.key_pair_id'),
-                    privateKeyPath: (string) $this->resolvePath(config('cloudfront-signer.private_key_path')),
-                    region: (string) config('cloudfront-signer.region', 'us-east-1')
+                    keyPairId: $keyPairId,
+                    privateKeyPath: $privateKeyAbsolutePath,
+                    region: $region
                 );
             }
         );
@@ -45,7 +63,7 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
         }
     }
 
-    protected function resolvePath($path): ?string
+    protected function resolvePath(string $path): ?string
     {
         if (empty($path)) {
             return null;

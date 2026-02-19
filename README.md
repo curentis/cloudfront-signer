@@ -1,6 +1,7 @@
 # CloudFront Signer for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/curentis/cloudfront-signer?style=flat-square&label=release&color=blue)](https://packagist.org/packages/curentis/cloudfront-signer)
+[![Static Analysis](https://github.com/curentis/cloudfront-signer/actions/workflows/phpstan.yml/badge.svg)](https://github.com/curentis/cloudfront-signer/actions/workflows/phpstan.yml)
 [![License](https://img.shields.io/packagist/l/curentis/cloudfront-signer.svg?style=flat-square)](https://packagist.org/packages/curentis/cloudfront-signer)
 
 A strictly-typed, modern Laravel package for generating AWS CloudFront signed URLs. Designed for high performance and seamless integration with Laravel 11 and 12+.
@@ -69,7 +70,7 @@ public function show(string $file, Signer $signer)
 We use Pest to ensure everything works perfectly.
 
 ```bash
-./vendor/bin/pest
+composer test
 ```
 ## Code Standards
 This package adheres to the Laravel Opinionated Standards. We use Laravel Pint to maintain code style and strict typing.
@@ -77,7 +78,17 @@ This package adheres to the Laravel Opinionated Standards. We use Laravel Pint t
 To fix code style:
 
 ```bash
-./vendor/bin/pint
+composer pint --fix
+```
+
+## Static Analysis
+
+We use [Larastan](https://github.com/larastan/larastan) (a Laravel wrapper for PHPStan) to perform static analysis on the codebase. This ensures type safety and catches potential bugs before they even reach the testing phase.
+
+To run the analysis locally, use the following composer script:
+
+```bash
+composer phpstan
 ```
 
 ## License
