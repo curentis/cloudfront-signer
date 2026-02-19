@@ -2,10 +2,13 @@ name: Code Style Checks
 
 on: [push, pull_request]
 
+permissions:
+  contents: write  # Allows Pint to commit fixes back to the branch
+  pull-requests: write # Allows Pint to add comments or annotations to PRs
+
 jobs:
   pint:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

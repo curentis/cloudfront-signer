@@ -8,6 +8,8 @@ jobs:
   test:
     needs: setup
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push the badge back to the repo
     strategy:
       fail-fast: false
       matrix:

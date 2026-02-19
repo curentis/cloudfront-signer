@@ -9,6 +9,9 @@ jobs:
   phpstan:
     needs: setup
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # Only if you want PHPStan to comment on PRs
     strategy:
       matrix:
         # We only need to run static analysis on the latest PHP version
