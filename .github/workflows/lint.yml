@@ -1,4 +1,4 @@
-name: Fix Code Style
+name: Code Style Checks
 
 on: [push, pull_request]
 
