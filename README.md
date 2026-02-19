@@ -77,8 +77,6 @@ To fix code style:
 ./vendor/bin/pint
 ```
 
-## Contributing
-Please see [CONTRIBUTING](https://github.com/Curentis/cloudfront-signer/blob/main/CONTRIBUTING) for details.
-
 ## License
 The [Apache License 2.0](https://github.com/Curentis/cloudfront-signer/blob/main/LICENSE). Please see License File for more information.
+
