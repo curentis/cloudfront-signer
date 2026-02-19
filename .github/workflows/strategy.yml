@@ -9,6 +9,19 @@ on:
         value: ${{ jobs.setup.outputs.laravel }}
 
 jobs:
+  # Calling the Lint workflow from your strategy
+  linting:
+    uses: ./.github/workflows/lint.yml
+    permissions:
+      contents: write
+      pull-requests: write
+
+  # Calling the Test workflow
+  testing:
+    uses: ./.github/workflows/run-tests.yml
+    permissions:
+      contents: read
+      statuses: write # Allows tests to show "success/fail" on the PR
   setup:
     runs-on: ubuntu-latest
     outputs:
