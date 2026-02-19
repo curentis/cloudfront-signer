@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 jobs:
   setup:
+    permissions:
+      contents: read
     uses: ./.github/workflows/strategy.yml
 
   phpstan:
