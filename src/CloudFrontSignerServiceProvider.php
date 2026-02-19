@@ -22,7 +22,7 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
             function ($app): CloudFrontSigner {
                 return new CloudFrontSigner(
                     keyPairId: (string) config('cloudfront-signer.key_pair_id'),
-                    privateKeyPath: (string) config('cloudfront-signer.private_key_path'),
+                    privateKeyPath: (string) $this->resolvePath(config('cloudfront-signer.private_key_path')),
                     region: (string) config('cloudfront-signer.region', 'us-east-1')
                 );
             }
@@ -43,5 +43,20 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
                 __DIR__.'/../config/cloudfront-signer.php' => config_path('cloudfront-signer.php'),
             ], 'cloudfront-signer-config');
         }
+    }
+
+    protected function resolvePath($path): ?string
+    {
+        if (empty($path)) {
+            return null;
+        }
+
+        // If it's already an absolute path, don't touch it
+        if (str_starts_with($path, DIRECTORY_SEPARATOR)) {
+            return $path;
+        }
+
+        // Otherwise, assume it's relative to the project root
+        return base_path($path);
     }
 }
