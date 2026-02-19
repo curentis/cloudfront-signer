@@ -1,0 +1,33 @@
+name: Run Tests
+
+on: [push, pull_request]
+
+jobs:
+  setup:
+    uses: ./.github/workflows/strategy.yml
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Crucial: You MUST wrap this in fromJson()
+        php: ${{ fromJson(needs.setup.outputs.php) }}
+        laravel: ${{ fromJson(needs.setup.outputs.laravel) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: openssl, mbstring, dom
+          coverage: pcov
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/pest --parallel

@@ -20,4 +20,13 @@ class TestCase extends Orchestra
         $app['config']->set('cloudfront-signer.private_key_path', __DIR__.'/fixtures/dummy.pem');
         $app['config']->set('cloudfront-signer.region', 'us-east-1');
     }
+
+    protected function defineEnvironment($app): void
+    {
+        // __DIR__ points to your 'tests' folder
+        $app['config']->set(
+            'cloudfront-signer.private_key_path',
+            __DIR__.'/fixtures/dummy.pem'
+        );
+    }
 }

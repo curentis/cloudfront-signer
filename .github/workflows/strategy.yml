@@ -1,0 +1,22 @@
+name: Strategy
+
+on:
+  workflow_call:
+    outputs:
+      php:
+        value: ${{ jobs.setup.outputs.php }}
+      laravel:
+        value: ${{ jobs.setup.outputs.laravel }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      php: ${{ steps.set-matrix.outputs.php }}
+      laravel: ${{ steps.set-matrix.outputs.laravel }}
+    steps:
+      - id: set-matrix
+        run: |
+          # Use raw JSON arrays. Do not use single quotes inside the array.
+          echo 'php=["8.2", "8.3", "8.4"]' >> $GITHUB_OUTPUT
+          echo 'laravel=["11.*", "12.*"]' >> $GITHUB_OUTPUT
