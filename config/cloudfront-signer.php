@@ -42,9 +42,31 @@ return [
     |
     | Example: storage_path('certs/cloudfront-private-key.pem')
     |
+    | If using CLOUDFRONT_PRIVATE_KEY_CONTENT instead, leave this empty.
+    |
     */
 
     'private_key_path' => env('CLOUDFRONT_PRIVATE_KEY_PATH'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Private Key Content
+    |--------------------------------------------------------------------------
+    |
+    | The raw private key content (PEM format) as a string. This is preferred
+    | over file paths for better security in containerized environments.
+    |
+    | The key should be stored as a multi-line environment variable:
+    | CLOUDFRONT_PRIVATE_KEY_CONTENT="-----BEGIN PRIVATE KEY-----
+    | MIIEvQIBADANBgk...
+    | -----END PRIVATE KEY-----"
+    |
+    | Or with escaped newlines for single-line env vars:
+    | CLOUDFRONT_PRIVATE_KEY_CONTENT="-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgk...\n-----END PRIVATE KEY-----"
+    |
+    */
+
+    'private_key_content' => env('CLOUDFRONT_PRIVATE_KEY_CONTENT'),
 
     /*
     |--------------------------------------------------------------------------
