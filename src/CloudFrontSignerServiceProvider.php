@@ -22,26 +22,42 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
             Signer::class,
             function ($app): CloudFrontSigner {
 
-                /** @var string $privateKeyPath */
-                $privateKeyPath = config('cloudfront-signer.private_key_path');
-
-                /** @var ?string $privateKeyAbsolutePath */
-                $privateKeyAbsolutePath = $this->resolvePath($privateKeyPath);
-
                 /** @var string $keyPairId */
                 $keyPairId = config('cloudfront-signer.key_pair_id');
 
                 /** @var string $region */
                 $region = config('cloudfront-signer.region', 'us-east-1');
 
+                // Try to use key content first, fall back to file path
+                /** @var ?string $privateKeyContent */
+                $privateKeyContent = config('cloudfront-signer.private_key_content');
+
+                if (!empty($privateKeyContent)) {
+                    // Use key content directly
+                    return new CloudFrontSigner(
+                        keyPairId: $keyPairId,
+                        region: $region,
+                        privateKeyContent: $this->normalizeKeyContent($privateKeyContent)
+                    );
+                }
+
+                // Fall back to file path
+                /** @var string $privateKeyPath */
+                $privateKeyPath = config('cloudfront-signer.private_key_path');
+
+                /** @var ?string $privateKeyAbsolutePath */
+                $privateKeyAbsolutePath = $this->resolvePath($privateKeyPath);
+
                 if (is_null($privateKeyAbsolutePath)) {
-                    throw new InvalidArgumentException('CloudFront private key must be a string.');
+                    throw new InvalidArgumentException(
+                        'CloudFront private key must be configured via CLOUDFRONT_PRIVATE_KEY_CONTENT or CLOUDFRONT_PRIVATE_KEY_PATH.'
+                    );
                 }
 
                 return new CloudFrontSigner(
                     keyPairId: $keyPairId,
-                    privateKeyPath: $privateKeyAbsolutePath,
-                    region: $region
+                    region: $region,
+                    privateKeyPath: $privateKeyAbsolutePath
                 );
             }
         );
@@ -63,6 +79,9 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Resolve key path
+     */
     protected function resolvePath(string $path): ?string
     {
         if (empty($path)) {
@@ -76,5 +95,14 @@ class CloudFrontSignerServiceProvider extends ServiceProvider
 
         // Otherwise, assume it's relative to the project root
         return base_path($path);
+    }
+
+    /**
+     * Normalize key content by handling escaped newlines from env variables.
+     */
+    private function normalizeKeyContent(string $keyContent): string
+    {
+        // Replace escaped newlines with actual newlines
+        return str_replace('\n', "\n", $keyContent);
     }
 }

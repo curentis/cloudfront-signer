@@ -34,8 +34,11 @@ Set your CloudFront credentials in your .env file:
 
 ```Code snippet
 CLOUDFRONT_KEY_PAIR_ID=
-CLOUDFRONT_PRIVATE_KEY_PATH=
 CLOUDFRONT_DEFAULT_EXPIRATION=3600
+
+# One of the below keys must be set, depending on how you want to provide the private key
+CLOUDFRONT_PRIVATE_KEY_PATH=
+CLOUDFRONT_PRIVATE_KEY_CONTENT=
 ```
 
 ## Usage
@@ -46,7 +49,7 @@ The quickest way to get a signed URL:
 ```php
 use Curentis\CloudFrontSigner\Facades\CloudFrontSigner;
 
-$url = '[https://cdn.yoursite.com/video.mp4](https://cdn.yoursite.com/video.mp4)';
+$url = 'https://cdn.yoursite.com/video.mp4';
 
 // Use default expiration (1 hour)
 $signedUrl = CloudFrontSigner::sign($url);
@@ -63,7 +66,7 @@ use Curentis\CloudFrontSigner\Contracts\Signer;
 
 public function show(string $file, Signer $signer)
 {
-    $url = $signer->sign("[https://cdn.example.com/](https://cdn.example.com/){$file}");
+    $url = $signer->sign("https://cdn.example.com");
 
     return view('video.player', compact('url'));
 }
