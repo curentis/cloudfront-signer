@@ -43,7 +43,7 @@ readonly class CloudFrontSigner implements Signer
     {
         $signParams = [
             'url'         => $url,
-            'expires'     => $this->resolveExpiry($expires),
+            'expires'     => time() + $this->resolveExpiry($expires),
             'key_pair_id' => $this->keyPairId,
         ];
 
