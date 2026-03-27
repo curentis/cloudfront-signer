@@ -23,7 +23,7 @@ it('uses custom expiration when provided', function () {
 
     $signedUrl = CloudFrontSignerFacade::sign($url, $expires);
 
-    expect($signedUrl)->toContain('Expires='.$expires->getTimestamp());
+    expect($signedUrl)->toContain('Expires='.(time() + $expires->getTimestamp()));
 });
 
 it('signs url using private key file path', function () {
