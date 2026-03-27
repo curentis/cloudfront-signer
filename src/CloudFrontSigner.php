@@ -27,7 +27,7 @@ readonly class CloudFrontSigner implements Signer
     {
         return $this->client->getSignedUrl([
             'url'         => $url,
-            'expires'     => $this->resolveExpiry($expires),
+            'expires'     => time() + $this->resolveExpiry($expires),
             'private_key' => $this->privateKeyPath,
             'key_pair_id' => $this->keyPairId,
         ]);
