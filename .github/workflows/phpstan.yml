@@ -18,7 +18,7 @@ jobs:
       matrix:
         # We only need to run static analysis on the latest PHP version
         # to save GitHub Action minutes, but you can use the matrix if you prefer.
-        php: [8.3]
+        php: [8.5]
 
     name: Static Analysis (PHP ${{ matrix.php }})
 
