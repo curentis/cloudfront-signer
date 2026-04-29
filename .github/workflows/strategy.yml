@@ -19,5 +19,5 @@ jobs:
       - id: set-matrix
         run: |
           # Use raw JSON arrays. Do not use single quotes inside the array.
-          echo 'php=["8.2", "8.3", "8.4"]' >> $GITHUB_OUTPUT
-          echo 'laravel=["11.*", "12.*"]' >> $GITHUB_OUTPUT
+          echo 'php=["8.2", "8.3", "8.4", "8.5"]' >> $GITHUB_OUTPUT
+          echo 'laravel=["11.*", "12.*", "13.*"]' >> $GITHUB_OUTPUT
